@@ -48,6 +48,26 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+      - name: Check _site directory existence
+        run: |
+          if [ -d "_site" ]; then
+            echo "_site directory exists!"
+          else
+            echo "ERROR: _site directory DOES NOT exist!"
+            exit 1 # Fail the workflow if it's missing
+          fi
+      
+      - name: List _site directory contents (if it exists)
+        run: ls -la _site/ # List contents to see if it's empty or what's inside
+      
+      - name: Print Jekyll version for debugging
+        run: jekyll -v
+      
+      - name: Print Bundler version for debugging
+        run: bundle -v
+      
+      - name: Print Ruby version for debugging
+        run: ruby -v
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
