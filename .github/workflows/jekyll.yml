@@ -52,7 +52,7 @@ jobs:
         run: ls -la # List contents to see if it's empty or what's inside
       
       - name: Print Jekyll version for debugging
-        run: jekyll -v
+        run: bundle exec jekyll -v
       
       - name: Print Bundler version for debugging
         run: bundle -v
